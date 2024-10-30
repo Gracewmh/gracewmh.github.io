@@ -1,14 +1,10 @@
 ---
-title: "Plotly"
+title: "Untitled"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
-
-# Here are some plots
-
-I am making interactive plots in plotly. I'll make plots using the Instacart dataset.
 
 ```{r, set up, message=FALSE}
 library(tidyverse)
@@ -27,7 +23,10 @@ instacart_ploty =
     sample_n(13000)
 ```
 
-On which day of the week are consumers most likely to place an order?
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
 
 ```{r, message=FALSE, warning=FALSE}
 instacart_ploty |> 
@@ -45,9 +44,13 @@ layout(
   )
 ```
 
-Total Products Ordered by Hour of the Day
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
 ```{r, warning=FALSE, message=FALSE}
-instacart_ploty |> 
+instacart |> 
   group_by(department, order_hour_of_day) |> 
   summarise(order_amount = n()/7)|> 
 plot_ly(x = ~order_hour_of_day, y = ~order_amount, color = ~department, type = "scatter", mode = "lines+markers", colors = "viridis")|> 
@@ -56,7 +59,7 @@ plot_ly(x = ~order_hour_of_day, y = ~order_amount, color = ~department, type = "
          yaxis = list(title = "Average Weekly Orders per Hour"))
 ```
 
-How does the days_since_prior_order vary across different departments
+### Chart C
 
 ```{r, warning=FALSE}
 instacart_ploty |> 
@@ -67,3 +70,4 @@ instacart_ploty |>
     yaxis = list(title = "Days Since Prior Order")
   )
 ```
+
