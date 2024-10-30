@@ -6,7 +6,7 @@ output:
     toc_float: true
 ---
 
-# This is Minghui (Grace) Wang's awesome website.
+# This is Grace's awesome website.
 
-
-![]()
+![](images/IMG_8711.JPG)
+This is a fantastic website that helps you get to know me better.
