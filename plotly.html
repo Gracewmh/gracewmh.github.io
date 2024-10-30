@@ -35,6 +35,14 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -362,6 +370,29 @@ Instacart dataset.</p>
 <pre class="r"><code>library(tidyverse)
 library(p8105.datasets)
 library(plotly)</code></pre>
+<p>Do some initial data cleaning</p>
+<pre class="r"><code>data(instacart)
+instacart_ploty = 
+  instacart |&gt; 
+  select(order_id, product_id,user_id,order_dow, order_hour_of_day, days_since_prior_order, aisle, department)|&gt;
+    drop_na() |&gt; 
+    sample_n(13000) |&gt;
+  view()</code></pre>
+<p>On which day of the week are consumers most likely to place an
+order?</p>
+<pre class="r"><code>instacart_ploty |&gt; 
+  mutate(order_dow = factor(order_dow, 
+                            levels = 0:6, 
+                            labels = c(&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;))) |&gt; 
+  group_by(order_dow) |&gt; 
+  summarise(order_amount = n()) |&gt; 
+  plot_ly(
+    x = ~order_dow, y = ~order_amount, color = ~order_dow,
+    type = &quot;bar&quot;, colors = &quot;viridis&quot;)</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-854efb584de5badea994" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-854efb584de5badea994">{"x":{"visdat":{"c6ea7fec06fe":["function () ","plotlyVisDat"]},"cur_data":"c6ea7fec06fe","attrs":{"c6ea7fec06fe":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"order_dow","type":"category","categoryorder":"array","categoryarray":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"order_amount"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Sunday"],"y":[3105],"type":"bar","name":"Sunday","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday"],"y":[1943],"type":"bar","name":"Monday","marker":{"color":"rgba(68,58,131,1)","line":{"color":"rgba(68,58,131,1)"}},"textfont":{"color":"rgba(68,58,131,1)"},"error_y":{"color":"rgba(68,58,131,1)"},"error_x":{"color":"rgba(68,58,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Tuesday"],"y":[1461],"type":"bar","name":"Tuesday","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Wednesday"],"y":[1435],"type":"bar","name":"Wednesday","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Thursday"],"y":[1445],"type":"bar","name":"Thursday","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Friday"],"y":[1665],"type":"bar","name":"Friday","marker":{"color":"rgba(143,214,68,1)","line":{"color":"rgba(143,214,68,1)"}},"textfont":{"color":"rgba(143,214,68,1)"},"error_y":{"color":"rgba(143,214,68,1)"},"error_x":{"color":"rgba(143,214,68,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Saturday"],"y":[1946],"type":"bar","name":"Saturday","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>mutate( text_label = str_c(“Price:”, price, “:”, neighbourhood))
+|&gt;</p>
 </div>
 
 

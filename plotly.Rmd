@@ -16,3 +16,31 @@ library(p8105.datasets)
 library(plotly)
 ```
 
+Do some initial data cleaning 
+
+```{r}
+data(instacart)
+instacart_ploty = 
+  instacart |> 
+  select(order_id, product_id,user_id,order_dow, order_hour_of_day, days_since_prior_order, aisle, department)|>
+    drop_na() |> 
+    sample_n(13000) |>
+  view()
+```
+
+On which day of the week are consumers most likely to place an order?
+
+```{r}
+instacart_ploty |> 
+  mutate(order_dow = factor(order_dow, 
+                            levels = 0:6, 
+                            labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) |> 
+  group_by(order_dow) |> 
+  summarise(order_amount = n()) |> 
+  plot_ly(
+    x = ~order_dow, y = ~order_amount, color = ~order_dow,
+    type = "bar", colors = "viridis")
+```
+  mutate(
+    text_label = 
+      str_c("Price: ", price, "\nNeighborhood: ", neighbourhood)) |> 
