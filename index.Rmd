@@ -1,13 +1,15 @@
 ---
-title: "Minghui (Grace) Wang"
+title: "Minghui Wang"
 output: 
   html_document:
     toc: true
     toc_float: true
 ---
 
-# This is Grace's awesome website.
+# Welcome to Grace's Portfolio
+
+I'm Minghui (Grace) Wang, a graduate student in epidemiology at Columbia University, with a background in neurology and a passion for understanding the intersection of health data and public health. Here, you’ll find an overview of my academic journey, research projects, and professional experience, including my work in statistical analysis, public health, and disease prevention.
 
 ![](images/IMG_8711.JPG)
-This is a fantastic website that helps you get to know me better.
-If you would like to learn more about my academic and professional experience, visit [this page](about-me.html)
+
+If you would like to learn more about my academic and professional experience, visit [this page](about-me.html). Thank you for visiting!
