@@ -1,18 +1,17 @@
 ---
-title: "Untitled"
+title: "Dashboard of Instacart Data Exploration"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
 ---
 
-```{r, set up, message=FALSE}
+```{r setup, include=FALSE}
+library(flexdashboard)
 library(tidyverse)
 library(p8105.datasets)
 library(plotly)
 ```
-
-Do some initial data cleaning 
 
 ```{r, message=FALSE}
 data(instacart)
@@ -22,13 +21,12 @@ instacart_ploty =
     drop_na() |> 
     sample_n(13000)
 ```
-
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Chart A. Order Distribution by Day of the Week and Department
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 instacart_ploty |> 
   mutate(order_dow = factor(order_dow, 
                             levels = 0:6, 
@@ -47,10 +45,10 @@ layout(
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Chart B. Average Weekly Products Ordered by Hour of the Day
 
-```{r, warning=FALSE, message=FALSE}
-instacart |> 
+```{r}
+instacart_ploty |> 
   group_by(department, order_hour_of_day) |> 
   summarise(order_amount = n()/7)|> 
 plot_ly(x = ~order_hour_of_day, y = ~order_amount, color = ~department, type = "scatter", mode = "lines+markers", colors = "viridis")|> 
@@ -59,13 +57,14 @@ plot_ly(x = ~order_hour_of_day, y = ~order_amount, color = ~department, type = "
          yaxis = list(title = "Average Weekly Orders per Hour"))
 ```
 
-### Chart C
+### Chart C. Distribution of Days Since Prior Order by Department
 
-```{r, warning=FALSE}
+```{r}
 instacart_ploty |> 
     mutate(department = fct_reorder(department, days_since_prior_order)) |> 
   plot_ly(x = ~department,  y = ~days_since_prior_order, type = "box", color = ~department , colors = "viridis" ) |>
   layout(
+    title = "Distribution of Days Since Prior Order by Department",
     xaxis = list(title = "Department"),
     yaxis = list(title = "Days Since Prior Order")
   )
