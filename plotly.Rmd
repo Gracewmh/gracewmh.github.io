@@ -1,0 +1,18 @@
+---
+title: "Plotly"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Here are some plots
+
+I am making interactive plots in plotly. I'll make plots using the Instacart dataset.
+
+```{r, set up, message=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+```
+
