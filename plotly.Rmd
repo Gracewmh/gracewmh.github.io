@@ -18,29 +18,49 @@ library(plotly)
 
 Do some initial data cleaning 
 
-```{r}
+```{r, message=FALSE}
 data(instacart)
 instacart_ploty = 
   instacart |> 
-  select(order_id, product_id,user_id,order_dow, order_hour_of_day, days_since_prior_order, aisle, department)|>
+  select(order_id, reordered, product_id,user_id,order_dow, order_hour_of_day, days_since_prior_order, aisle, department)|>
     drop_na() |> 
-    sample_n(13000) |>
-  view()
+    sample_n(13000)
 ```
 
 On which day of the week are consumers most likely to place an order?
 
-```{r}
+```{r, message=FALSE}
 instacart_ploty |> 
   mutate(order_dow = factor(order_dow, 
                             levels = 0:6, 
                             labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) |> 
-  group_by(order_dow) |> 
+  group_by(order_dow,department) |> 
   summarise(order_amount = n()) |> 
   plot_ly(
-    x = ~order_dow, y = ~order_amount, color = ~order_dow,
+    x = ~order_dow, y = ~order_amount, color = ~department,
     type = "bar", colors = "viridis")
 ```
-  mutate(
-    text_label = 
-      str_c("Price: ", price, "\nNeighborhood: ", neighbourhood)) |> 
+
+Total Products Ordered by Hour of the Day
+```{r, message=FALSE}
+instacart |> 
+  group_by(department, order_hour_of_day) |> 
+  summarise(order_amount = n()/7)|> 
+plot_ly(x = ~order_hour_of_day, y = ~order_amount, color = ~department, type = "scatter", mode = "lines+markers")|> 
+  layout(title = "Average Weekly Products Ordered by Hour of the Day",
+         xaxis = list(title = "Hour of the Day"),
+         yaxis = list(title = "Average Weekly Orders per Hour"))
+```
+
+
+How does the days_since_prior_order vary across different departments
+
+```{r,message=FALSE}
+instacart_ploty |> 
+    mutate(department = fct_reorder(department, days_since_prior_order)) |> 
+  plot_ly(x = ~department,  y = ~days_since_prior_order, type = "box", color = ~department ) |>
+  layout(
+    xaxis = list(title = "Department"),
+    yaxis = list(title = "Days Since Prior Order")
+  )
+```
