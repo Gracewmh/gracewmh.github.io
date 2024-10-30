@@ -1,0 +1,76 @@
+---
+title: "RESUME"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Academic experience
+
+## Education
+
+**Columbia University**<br>                                     New York, US<br>
+9/2023-06/2025<br>
+Mater of Public Health in Epidemiology, Certificate: Applied Biostatistics and Data Science<br>
+
+**Capital Medical University,Beijing Tiantan Hospital**<br>      Beijing, China<br>
+09/2019-06/2022<br> 
+Mater of Medicine in Neurology ( “5+3”-year-program, equivalent to Neurology Residency)<br>
+
+**Capital Medical University,Beijing Tiantan Hospital**<br>      Beijing, China<br>
+09/2014-06/2019<br>
+Bachelor of Medicine in Clinical Medicine (part of “5+3”-year-program, equivalent to MD)<br> 
+
+## Research Expereince
+
+**Study On the Association of Racket Sports and Brain Function of People over 40 Years Old**<br>
+05/2020-06/2023<br>
+Beijing China<br>
+Independent Researcher                 
+
+- Investigated the relationship between racquet sports and brain function protection, exploring mechanism.
+
+- Recruited and assessed 224 participants over 40, using 13 neuropsychological questionnaires to measure emotion, cognition, sleep, quality of life, and social behavior function.
+
+- Analyzed data with Python and R, revealing that long-term racquet sports reduce negative emotions, improve cognitive function, and enhance sleep quality and life satisfaction.
+
+## Publications
+- **Wang, M.**, Liu, J. (2022) The Association Between Physical Activity and Sleep Characteristics in People Aged 65 and over: National Health and Nutrition Examination Survey (NHANES) 2017-2018, accepted by the 6th International Conference on Economic Management and Green Development (ICEMGD 2022), and submitted to CPCI, Crossref, CNKI, DOAJ, Google Scholar, and other databases for indexing.
+
+- Wang, C. & **Wang, M**. (2022) Integration of Sports and Medicine and Brain Health Popularization Brochure: Three-Dimensional Tutorial of Balloon Volleyball (ISSN：978-7-5189-8774-0), Scientific and Technical Documentation Press
+
+
+# Professional experience
+## Health-care
+**Resident Physician in neurology**<br>
+Beijing Tiantan Hospital, Capital Medical University<br>
+Beijing China<br>
+09/2019- 06/2022<br>
+
+- Diagnosed and treated neurological conditions for over 300 patients with cerebrovascular disease, infections and inflammatory diseases in the nervous system, neuromuscular, movement disorders, etc.
+
+- Performed 250+ PSG sleep monitoer and analyzed 3,000+ neuropsychological assessments.
+
+- Led and participated in three clinical studies to improve patient physical, mental and social outcomes<br>    
+
+**Intern Physician** <br>
+Beijing Tiantan Hospital, Capital Medical University<br>
+Beijing China<br>
+09/2018-07/2019<br>
+
+- Gained hands-on experience in internal medicine, surgery, gynecology, pediatrics and other clinical departments, developing strong skills in diagnosing and treating common diseases.
+
+## Biostatistics
+
+**Teaching asistant**<br>
+P8100 Applied Regression<br>
+09/2024- 12/2024<br>
+Columbia University,New York, US<br>
+
+- Assisted in teaching graduate students foundational and advanced regression techniques. Supported the professor in developing course materials, grading assignments, and holding weekly office hours to clarify complex statistical concepts. 
+
+- Fostered a collaborative learning environment, helping students apply regression methods to real-world data and enhancing their analytical skills.
+
+
+
