@@ -24,44 +24,50 @@ instacart_ploty =
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A. Order Distribution by Day of the Week and Department
+### Chart A. Distribution of Days Since Prior Order Across Aisles
 
 ```{r}
 instacart_ploty |> 
-  mutate(order_dow = factor(order_dow, 
-                            levels = 0:6, 
-                            labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) |> 
-  group_by(order_dow,department) |> 
-  summarise(order_amount = n()) |> 
-  plot_ly( x = ~order_dow, y = ~order_amount, color = ~department, type = "bar", colors = "viridis")|> 
-layout(xaxis = list(title = "Day of the Week"),
-    yaxis = list(title = "Order Amount"),
-    barmode = "stack"
+    filter(aisle != "missing") |>
+    mutate(aisle = fct_reorder(aisle, days_since_prior_order)) |> 
+  plot_ly(x = ~aisle,  y = ~days_since_prior_order, type = "box", color = ~aisle , colors = "viridis" ) |>
+  layout(
+    xaxis = list(title = "Aisle"),
+    yaxis = list(title = "Days Since Prior Order")
   )
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B. Average Weekly Products Ordered by Hour of the Day
+### Chart B. Average Weekly Orders of each department by Hour of the Day
 
 ```{r}
 instacart_ploty |> 
+  filter(department != "missing") |>
   group_by(department, order_hour_of_day) |> 
   summarise(order_amount = n()/7)|> 
 plot_ly(x = ~order_hour_of_day, y = ~order_amount, color = ~department, type = "scatter", mode = "lines+markers", colors = "viridis")|> 
-  layout(xaxis = list(title = "Hour of the Day"),
+  layout(
+         xaxis = list(title = "Hour of the Day"),
          yaxis = list(title = "Average Weekly Orders per Hour"))
 ```
 
-### Chart C. Distribution of Days Since Prior Order by Department
+### Chart C. Order of different Department Distribution by Day of the Week
 
 ```{r}
 instacart_ploty |> 
-    mutate(department = fct_reorder(department, days_since_prior_order)) |> 
-  plot_ly(x = ~department,  y = ~days_since_prior_order, type = "box", color = ~department , colors = "viridis" ) |>
-  layout(xaxis = list(title = "Department"),
-    yaxis = list(title = "Days Since Prior Order")
+  filter(department != "missing") |>
+  mutate(order_dow = factor(order_dow, 
+                            levels = 0:6, 
+                            labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) |> 
+  group_by(order_dow,department) |> 
+  summarise(order_amount = n()) |> 
+  plot_ly( x = ~order_dow, y = ~order_amount, color = ~department, type = "bar", colors = "viridis")|> 
+layout(
+    xaxis = list(title = "Day of the Week"),
+    yaxis = list(title = "Order Amount"),
+    barmode = "stack"
   )
 ```
 

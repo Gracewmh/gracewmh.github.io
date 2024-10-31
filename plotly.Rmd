@@ -22,15 +22,15 @@ Do some initial data cleaning
 data(instacart)
 instacart_ploty = 
   instacart |> 
-  select(order_id, product_id,user_id,order_dow, order_hour_of_day, days_since_prior_order, aisle, department)|>
+  select(order_dow, order_hour_of_day, days_since_prior_order, aisle, department)|>
     drop_na() |> 
     sample_n(13000)
 ```
 
-On which day of the week are consumers most likely to place an order?
-
+Order of different Department Distribution by Day of the Week
 ```{r, message=FALSE, warning=FALSE}
 instacart_ploty |> 
+  filter(department != "missing") |>
   mutate(order_dow = factor(order_dow, 
                             levels = 0:6, 
                             labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) |> 
@@ -45,25 +45,27 @@ layout(
   )
 ```
 
-Total Products Ordered by Hour of the Day
+Average Weekly Orders of each department by Hour of the Day
 ```{r, warning=FALSE, message=FALSE}
 instacart_ploty |> 
+  filter(department != "missing") |>
   group_by(department, order_hour_of_day) |> 
   summarise(order_amount = n()/7)|> 
 plot_ly(x = ~order_hour_of_day, y = ~order_amount, color = ~department, type = "scatter", mode = "lines+markers", colors = "viridis")|> 
-  layout(title = "Average Weekly Products Ordered by Hour of the Day",
+  layout(title = "Average Weekly Orders of each department by Hour of the Day",
          xaxis = list(title = "Hour of the Day"),
          yaxis = list(title = "Average Weekly Orders per Hour"))
 ```
 
-How does the days_since_prior_order vary across different departments
+How does the days_since_prior_order vary across different aisle
 
 ```{r, warning=FALSE}
 instacart_ploty |> 
-    mutate(department = fct_reorder(department, days_since_prior_order)) |> 
-  plot_ly(x = ~department,  y = ~days_since_prior_order, type = "box", color = ~department , colors = "viridis" ) |>
-  layout(
-    xaxis = list(title = "Department"),
+    filter(aisle != "missing") |>
+    mutate(aisle = fct_reorder(aisle, days_since_prior_order)) |> 
+  plot_ly(x = ~aisle,  y = ~days_since_prior_order, type = "box", color = ~aisle , colors = "viridis" ) |>
+  layout(title = "Distribution of Days Since Prior Order Across Aisles",
+    xaxis = list(title = "Aisle"),
     yaxis = list(title = "Days Since Prior Order")
   )
 ```
